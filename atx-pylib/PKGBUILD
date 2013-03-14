@@ -1,0 +1,54 @@
+# Maintainer: Radek Podgorny <radek@podgorny.cz>
+pkgname=atx-pylib
+pkgver=27
+pkgrel=1
+pkgdesc="Asterix python library"
+arch=('any')
+#url="https://github.com/ilanschnell/bitarray"
+#license=('PSF')
+depends=('python2')
+makedepends=('mercurial')
+#options=(!emptydirs)
+#source=(http://pypi.python.org/packages/source/b/bitarray/bitarray-${pkgver}.tar.gz)
+#md5sums=('a1e80e63aec650721826d385b017201b')
+
+#package() {
+#  cd "$srcdir"/bitarray-$pkgver
+#  python2 setup.py install --root="$pkgdir"/ --optimize=1
+#}
+
+# i had to rename this from single underscope to prevent makepkg from detecting this is a hg repo
+# it's back, actually ;-)
+_hgroot=http://rpodgorny@hg.asterix.cz/
+_hgrepo=pylib
+
+build() {
+	cd "$srcdir"
+	msg "Connecting to Mercurial server...."
+
+	if [[ -d "$_hgrepo" ]]; then
+		cd "$_hgrepo"
+		hg pull
+		msg "The local files are updated."
+	else
+		hg clone "$_hgroot" "$_hgrepo"
+	fi
+
+	msg "Mercurial checkout done or server timeout"
+	msg "Starting build..."
+
+	rm -rf "$srcdir/$_hgrepo-build"
+	cp -r "$srcdir/$_hgrepo" "$srcdir/$_hgrepo-build"
+	cd "$srcdir/$_hgrepo-build"
+}
+
+package() {
+	cd "$srcdir/$_hgrepo-build"
+	#make DESTDIR="$pkgdir/" install
+
+	install -d $pkgdir/usr/lib/python2.7/site-packages
+	for i in *.py; do
+		echo $i
+		install $i $pkgdir/usr/lib/python2.7/site-packages/
+	done
+}
