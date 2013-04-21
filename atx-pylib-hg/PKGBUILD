@@ -1,6 +1,6 @@
 # Maintainer: Radek Podgorny <radek@podgorny.cz>
 pkgname=atx-pylib-hg
-pkgver=28
+pkgver=29
 pkgrel=1
 pkgdesc="Asterix python library"
 arch=('any')
