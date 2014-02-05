@@ -1,6 +1,6 @@
 # Maintainer: Radek Podgorny <radek@podgorny.cz>
-pkgname=('faddnsc-hg' 'faddnsc_gui-hg')
-pkgver=r119.0425a7667582
+pkgname='faddnsc-hg'
+pkgver=r135.77daf40fd844
 pkgrel=1
 pkgdesc="Freakin' Awesome Dynamic DNS Updater"
 arch=('any')
@@ -17,25 +17,15 @@ pkgver() {
 	printf "r%s.%s" "$(hg identify -n)" "$(hg identify -i)"
 }
 
-package_faddnsc-hg() {
-	cd "$srcdir/faddns"
-	python setup.py install --root="$pkgdir"/ --optimize=1
-}
-
-package_faddnsc_gui-hg() {
-	cd "$srcdir/faddns"
-	python setup.py install --root="$pkgdir"/ --optimize=1
-}
-
-package_ORIG() {
+package() {
 	cd "$srcdir/faddns"
 	python setup.py install --root="$pkgdir"/ --optimize=1
 
-	#install -d $pkgdir/usr/lib/systemd/system
-	#install nsupdate.service $pkgdir/usr/lib/systemd/system/
+	install -d $pkgdir/usr/lib/systemd/system
+	install faddnsc.service $pkgdir/usr/lib/systemd/system/
 
-	#install -d $pkgdir/etc
-	#install nsupdate.ini $pkgdir/etc/nsupdate.conf
+	install -d $pkgdir/etc
+	install faddnsc.ini $pkgdir/etc/faddnsc.conf
 
 	#install -d $pkgdir/usr/bin
 	#install nsupdate.py $pkgdir/usr/bin/nsupdate
