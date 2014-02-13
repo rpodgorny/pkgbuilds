@@ -17,7 +17,7 @@ conflicts=()
 replaces=()
 backup=()
 options=()
-install=
+install=$pkgname.install
 changelog=
 source=(git+https://github.com/lwfinger/rtl8188eu)
 noextract=()
@@ -43,12 +43,4 @@ package() {
 	cd "$srcdir/$pkgname"
 	#make DESTDIR="$pkgdir/" install
 	install -p -D -m 644 8188eu.ko  $pkgdir/lib/modules/`uname -r`/kernel/drivers/net/wireless/8188eu.ko
-}
-
-post_install() {
-	depmod -a
-}
-
-post_remove() {
-	depmod -a
 }
