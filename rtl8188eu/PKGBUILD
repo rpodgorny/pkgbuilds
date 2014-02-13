@@ -1,10 +1,10 @@
 # Maintainer: Radek Podgorny <radek@podgorny.cz>
 pkgname=rtl8188eu
-pkgver=
+pkgver=r378.c2741d0
 pkgrel=1
 epoch=
 pkgdesc="Realtek 8188EU driver"
-arch=('i686' 'amd64' 'armv6h')
+arch=('i686' 'x86_64' 'armv6h')
 url="https://github.com/lwfinger/rtl8188eu"
 license=('GPL')
 groups=()
@@ -41,5 +41,14 @@ build() {
 
 package() {
 	cd "$srcdir/$pkgname"
-	make DESTDIR="$pkgdir/" install
+	#make DESTDIR="$pkgdir/" install
+	install -p -D -m 644 8188eu.ko  $pkgdir/lib/modules/`uname -r`/kernel/drivers/net/wireless/8188eu.ko
+}
+
+post_install() {
+	depmod -a
+}
+
+post_remove() {
+	depmod -a
 }
