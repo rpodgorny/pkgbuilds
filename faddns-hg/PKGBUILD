@@ -1,6 +1,6 @@
 # Maintainer: Radek Podgorny <radek@podgorny.cz>
 pkgname='faddnsc-hg'
-pkgver=r139.c0f7995595ed
+pkgver=r141.822485860225
 pkgrel=1
 pkgdesc="Freakin' Awesome Dynamic DNS Updater"
 arch=('any')
@@ -9,6 +9,7 @@ url="https://podgorny.cz/faddns"
 depends=('python' 'python-docopt')
 makedepends=('mercurial')
 #options=(!emptydirs)
+backup=('etc/faddnsc.conf')
 source=('hg+http://hg.podgorny.cz/faddns')
 md5sums=('SKIP')
 
