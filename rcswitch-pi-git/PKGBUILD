@@ -1,0 +1,40 @@
+# Maintainer: Radek Podgorny <radek@podgorny.cz>
+pkgname=rcswitch-pi
+pkgver=r10.1c4e20f
+pkgrel=1
+epoch=
+pkgdesc="rapberry pi library for rc controlled outlets"
+arch=('armv6h')
+url="https://github.com/rpodgorny/rcswitch-pi"
+license=('GPL')
+groups=()
+depends=('wiringpi')
+makedepends=()
+checkdepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+#options=(staticlibs)
+install=
+changelog=
+source=('git+https://github.com/rpodgorny/rcswitch-pi.git')
+noextract=()
+md5sums=('SKIP')
+
+pkgver() {
+	cd "$srcdir/rcswitch-pi"
+	printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+build() {
+	cd "$srcdir/$pkgname"
+	#./configure --prefix=/usr
+	make
+}
+
+package() {
+	cd "$srcdir/$pkgname"
+	make DESTDIR="$pkgdir/" install
+}
