@@ -1,0 +1,99 @@
+#!/usr/bin/python
+
+__version__ = '0.1'
+
+
+import subprocess
+import os
+import re
+import time
+
+
+def get_metric(route):
+	try:
+		metric = int(re.search('metric (\w*)', route).groups()[0])
+	except:
+		metric = 0
+	#endtry
+
+	return metric
+#enddef
+
+
+def remove_metric(route):
+	return re.sub('metric \w*', '', route).strip()
+#enddef
+
+
+def set_metric(route, metric):
+	return '%s metric %d' % (remove_metric(route), metric)
+#enddef
+
+
+def get_default_routes():
+	lines = subprocess.check_output('ip route', shell=True).decode().split('\n')
+	for line in lines:
+		line = line.strip()
+
+		if not 'default' in line: continue
+
+		yield line
+	#endfor
+#enddef
+
+
+def test_route(route):
+	r = route.replace('default', '8.8.8.8')
+	r = set_metric(r, 0)
+
+	subprocess.call('ip route add %s' % r, shell=True)
+
+	if subprocess.call('/usr/bin/fping -r 0 8.8.8.8 >/dev/null', shell=True) == 0:
+		ret = 1
+	else:
+		ret = 0
+	#endif
+
+	subprocess.call('ip route del %s' % r, shell=True)
+
+	return ret
+#enddef
+
+
+def autometric():
+	for route in get_default_routes():
+		metric = get_metric(route)
+
+		if test_route(route):
+			new_metric = metric % 10000
+		else:
+			new_metric = (metric % 10000) + 10000
+		#endif
+
+		if new_metric != metric:
+			print('setting new route metric for "%s" to %d' % (route, new_metric))
+
+			subprocess.call('ip route del %s' % route, shell=True)
+			subprocess.call('ip route add %s' % set_metric(route, new_metric), shell=True)
+		#endif
+	#endfor
+#enddef
+
+def main():
+	if not os.path.isfile('/usr/bin/fping'):
+		print('/usr/bin/fping not found!')
+		return
+	#endif
+
+	while 1:
+		autometric()
+
+		#print('going to sleep')
+		time.sleep(30)
+	#endwhile
+#enddef
+
+
+if __name__ == '__main__':
+	main()
+#endif

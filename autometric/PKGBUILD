@@ -1,0 +1,26 @@
+# Maintainer: Radek Podgorny <radek@podgorny.cz>
+pkgname='autometric'
+pkgver='0.1'
+pkgrel=1
+pkgdesc="Radek Podgorny's automatic route metric setting stuff"
+arch=('any')
+#url="https://podgorny.cz"
+#license=('PSF')
+depends=('fping' 'python')
+#optdepends=()
+#makedepends=()
+#options=(!emptydirs)
+#backup=('etc/mine-scrypt-gpu.conf')
+source=('autometric' 'autometric.service')
+md5sums=('e4b229122e5a416e8d68ad25833458f9'
+         '1fa9d9ad386462d0663a94d1dc4ccf91')
+
+package() {
+	cd "$srcdir"
+
+	install -d $pkgdir/usr/bin
+	install autometric $pkgdir/usr/bin
+
+	install -d $pkgdir/usr/lib/systemd/system
+	install autometric.service $pkgdir/usr/lib/systemd/system/
+}
