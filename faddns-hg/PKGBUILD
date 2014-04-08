@@ -1,7 +1,7 @@
 # Maintainer: Radek Podgorny <radek@podgorny.cz>
 pkgname='faddnsc-hg'
 pkgver=r141.822485860225
-pkgrel=1
+pkgrel=2
 pkgdesc="Freakin' Awesome Dynamic DNS Updater"
 arch=('any')
 url="https://podgorny.cz/faddns"
