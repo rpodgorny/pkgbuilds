@@ -1,7 +1,7 @@
 # Maintainer: Radek Podgorny <radek@podgorny.cz>
 pkgname='mining-scrypt'
 pkgver=0
-pkgrel=1
+pkgrel=2
 pkgdesc="Radek Podgorny's scrypt mining stuff"
 arch=('any')
 #url="https://podgorny.cz"
@@ -30,7 +30,7 @@ source=(
 md5sums=('5720ec7986a89414b09ca0682ce0404f'
          '56be4f01573a75df866653b21f17c65b'
          'f129ff7d416ef1b0e8a129857e8e818e'
-         'e51bc0b623f4e6fd7fb27c2930ea764f'
+         '2f76e5f1d39bcaa0142d75c0b5a184b8'
          '850302a15369ec87931a3d3185edaf5c'
          'dab456535b88a509cf34d9fb51791815'
          'e00c1b3fd332dd36d8df39f397ae204d'
