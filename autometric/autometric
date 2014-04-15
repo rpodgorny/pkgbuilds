@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-__version__ = '0.3'
+__version__ = '0.4'
 
 
 import sys
@@ -8,6 +8,12 @@ import subprocess
 import os
 import re
 import time
+import logging
+
+
+def logging_setup(level):
+	logging.basicConfig(level=level)
+#enddef
 
 
 def get_metric(route):
@@ -66,15 +72,15 @@ def autometric():
 		metric = get_metric(route)
 
 		if test_route(route):
-			print('route "%s" functional' % route)
+			logging.debug('route "%s" functional' % route)
 			new_metric = metric % 10000
 		else:
-			print('route "%s" non-functional!' % route)
+			logging.debug('route "%s" non-functional!' % route)
 			new_metric = (metric % 10000) + 10000
 		#endif
 
 		if new_metric != metric:
-			print('setting new route metric for "%s" to %d' % (route, new_metric))
+			logging.info('setting new route metric for "%s" to %d' % (route, new_metric))
 
 			subprocess.call('ip route del %s' % route, shell=True)
 			subprocess.call('ip route add %s' % set_metric(route, new_metric), shell=True)
@@ -84,17 +90,19 @@ def autometric():
 
 
 def main():
-	print('autometric v%s' % __version__)
+	logging_setup('INFO')
+
+	logging.info('autometric v%s' % __version__)
 
 	if not os.path.isfile('/usr/bin/fping'):
-		print('/usr/bin/fping not found!')
+		logging.critical('/usr/bin/fping not found!')
 		return 1
 	#endif
 
 	while 1:
 		autometric()
 
-		#print('going to sleep')
+		logging.debug('going to sleep')
 		time.sleep(30)
 	#endwhile
 
