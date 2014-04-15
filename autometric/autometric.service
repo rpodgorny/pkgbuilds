@@ -5,10 +5,6 @@ Wants=network.target
 
 [Service]
 ExecStart=/usr/bin/autometric
-#ExecReload=/bin/kill -HUP $MAINPID
-#StandardInput=null
-#StandardOutput=null
-#User=radek
 Restart=always
 
 [Install]
