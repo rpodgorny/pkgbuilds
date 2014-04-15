@@ -12,8 +12,8 @@ depends=('fping' 'python')
 #options=(!emptydirs)
 #backup=('etc/mine-scrypt-gpu.conf')
 source=('autometric' 'autometric.service')
-md5sums=('fddfcd798db85789aae8682b48aca197'
-         '1fa9d9ad386462d0663a94d1dc4ccf91')
+md5sums=('09e7b101c07c6a1efab36cf4eb945404'
+         '1bc169293b1427d103efaa9eff08136e')
 
 package() {
 	cd "$srcdir"
