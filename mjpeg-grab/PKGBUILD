@@ -1,0 +1,33 @@
+# Maintainer: Radek Podgorny <radek@podgorny.cz>
+
+pkgname=mjpeg-grab-git
+_gitname="mjpeg-grab"
+pkgver=0.4.1.r24.ge8464a4
+pkgrel=1
+pkgdesc="v4l2 frame grabbing tool"
+url="https://github.com/kjetilos/mjpeg-grab"
+arch=('i686' 'x86_64' 'armv6h')
+license='GPL2'
+
+makedepends=('git')
+
+source=('repo::git+https://github.com/kjetilos/mjpeg-grab')
+md5sums=('SKIP')
+
+pkgver() {
+	cd "$srcdir/repo"
+
+	git describe --long | sed -r 's/([^-]*-g)/r\1/;s/-/./g'
+}
+
+build() {
+	cd "$srcdir/repo"
+
+	make
+}
+
+package() {
+	cd "$srcdir/repo"
+
+	install -D -m755 mjpeg-grab "${pkgdir}/usr/bin/mjpeg-grab" || return 1
+}
