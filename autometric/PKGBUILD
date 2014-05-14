@@ -1,7 +1,7 @@
 # Maintainer: Radek Podgorny <radek@podgorny.cz>
 pkgname='autometric'
 pkgver='0.4'
-pkgrel=1
+pkgrel=2
 pkgdesc="Radek Podgorny's automatic route metric setting stuff"
 arch=('any')
 #url="https://podgorny.cz"
@@ -22,5 +22,5 @@ package() {
 	install autometric $pkgdir/usr/bin
 
 	install -d $pkgdir/usr/lib/systemd/system
-	install autometric.service $pkgdir/usr/lib/systemd/system/
+	install -m 0644 autometric.service $pkgdir/usr/lib/systemd/system/
 }
