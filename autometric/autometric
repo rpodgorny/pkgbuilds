@@ -1,6 +1,16 @@
 #!/usr/bin/python
 
-__version__ = '0.4'
+'''
+Autometric.
+
+Usage:
+  autometric [options]
+
+Options:
+  --log-level DEBUG|INFO|WARNING|ERROR  Log level [default: INFO].
+'''
+
+__version__ = '0.5'
 
 
 import sys
@@ -9,6 +19,7 @@ import os
 import re
 import time
 import logging
+import docopt
 
 
 def logging_setup(level):
@@ -66,31 +77,14 @@ def test_route(route):
 	return ret
 #enddef
 
-
-def autometric():
-	for route in get_default_routes():
-		metric = get_metric(route)
-
-		if test_route(route):
-			logging.debug('route "%s" functional' % route)
-			new_metric = metric % 10000
-		else:
-			logging.debug('route "%s" non-functional!' % route)
-			new_metric = (metric % 10000) + 10000
-		#endif
-
-		if new_metric != metric:
-			logging.info('setting new route metric for "%s" to %d' % (route, new_metric))
-
-			subprocess.call('ip route del %s' % route, shell=True)
-			subprocess.call('ip route add %s' % set_metric(route, new_metric), shell=True)
-		#endif
-	#endfor
-#enddef
-
-
 def main():
-	logging_setup('INFO')
+	args = docopt.docopt(__doc__, version=__version__)
+
+	log_level = args['--log-level']
+	metric_mask = 10000
+	functional_minimum = 600  # 10 minutes alive at least
+
+	logging_setup(log_level)
 
 	logging.info('autometric v%s' % __version__)
 
@@ -99,8 +93,49 @@ def main():
 		return 1
 	#endif
 
+	functional_since = {}
+
 	while 1:
-		autometric()
+		t = time.monotonic()
+
+		routes = get_default_routes()
+
+		for route in routes:
+			if test_route(route):
+				logging.debug('route "%s" functional' % route)
+
+				functional_since[route] = t
+			else:
+				logging.debug('route "%s" non-functional!' % route)
+
+				if route in functional_since:
+					del functional_since[route]
+				#endif
+			#endif
+		#endfor
+
+		for route in routes:
+			since = functional_since[route]
+			metric = get_metric(route)
+
+			if route in first_func \
+			and t - since > functional_minimum \
+			and metric >= metric_mask:
+				new_metric = metric % metric_mask
+
+				logging.info('setting new route metric for "%s" to %d' % (route, new_metric))
+
+				subprocess.call('ip route del %s' % route, shell=True)
+				subprocess.call('ip route add %s' % set_metric(route, new_metric), shell=True)
+			elif metric < metric_mask:
+				new_metric = metric + metric_mask
+
+				logging.info('setting new route metric for "%s" to %d' % (route, new_metric))
+
+				subprocess.call('ip route del %s' % route, shell=True)
+				subprocess.call('ip route add %s' % set_metric(route, new_metric), shell=True)
+			#endif
+		#endfor
 
 		logging.debug('going to sleep')
 		time.sleep(30)
