@@ -3,7 +3,7 @@
 
 pkgname=wine-git
 _gitname="wine"
-pkgver=414eec2
+pkgver=2441734
 pkgrel=1
 pkgdesc="A compatibility layer for running Windows programs. Latest GIT version."
 url="http://www.winehq.com"
@@ -50,6 +50,7 @@ makedepends=(autoconf ncurses bison perl fontforge flex prelink
   mesa            lib32-mesa
   samba
   git
+  lib32-libusb
 )
   
 optdepends=(
