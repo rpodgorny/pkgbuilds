@@ -1,0 +1,11 @@
+[Unit]
+Description=Automatic default route metric setter
+After=network.target
+Wants=network.target
+
+[Service]
+ExecStart=/usr/bin/autometric
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

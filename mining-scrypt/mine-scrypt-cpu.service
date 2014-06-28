@@ -1,0 +1,15 @@
+[Unit]
+Description=CPU miner
+After=network.target
+Wants=network.target
+
+[Service]
+ExecStart=/usr/bin/mine-scrypt-cpu
+#ExecReload=/bin/kill -HUP $MAINPID
+#StandardInput=null
+#StandardOutput=null
+#User=radek
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
