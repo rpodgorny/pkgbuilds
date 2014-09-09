@@ -1,0 +1,9 @@
+[Unit]
+Description=XML configuration generator for Guacamole for Asterix
+
+[Service]
+ExecStart=/usr/bin/guacamole_gen_xml_asterix
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

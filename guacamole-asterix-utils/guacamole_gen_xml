@@ -1,0 +1,69 @@
+#!/usr/bin/python3
+
+import subprocess
+import sys
+
+
+def get_hosts_and_addrs(ns, domain):
+	cmd = 'dig -t axfr @%s %s' % (ns, domain)
+	lines = subprocess.check_output(cmd, shell=True).decode().split('\n')
+
+	lines = [i for i in lines if '\tA\t' in i or '\tAAAA\t' in i]
+
+	ret = []
+	for line in lines:
+		host, *_, addr = line.split('\t')
+		if ' ' in host: host = host.split(' ')[0]  # sometimes, when the host name is too long, only a space is used as delimiter
+		host = host[:-1]  # cut off the trailing dot
+		ret.append((host, addr))
+	#endfor
+
+	return ret
+#enddef
+
+def get_xml(hosts):
+	ret = ''
+
+	ret += '''<user-mapping>
+<authorize username="asterix" password="atx438c">
+'''
+
+	for host in hosts:
+		ret += '''<connection name="%s">
+	<protocol>vnc</protocol>
+	<param name="hostname">%s</param>
+	<param name="port">5900</param>
+	<param name="password">atx438c</param>
+	</connection>
+''' % (host, host)
+	#endfor
+
+	ret += '''</authorize>
+</user-mapping>
+'''
+
+	return ret
+#enddef
+
+def main():
+	ns = sys.argv[1]
+	domain = sys.argv[2]
+	hosts_and_addrs = get_hosts_and_addrs(ns, domain)
+
+	hosts = set()
+	for host, addr in hosts_and_addrs:
+		#print(host, addr)
+		if addr == '::1': continue
+		hosts.add(host)
+	#endfor
+
+	hosts = sorted(list(hosts))
+	#print(hosts)
+
+	xml = get_xml(hosts)
+	print(xml)
+#enddef
+
+if __name__ == '__main__':
+	main()
+#endif
