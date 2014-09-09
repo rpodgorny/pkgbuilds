@@ -1,0 +1,8 @@
+#!/usr/bin/sh
+
+set -x
+
+while [ 1 ]; do
+	/usr/bin/guacamole_gen_xml ns1.podgorny.cz asterix.cz >/etc/guacamole/user-mapping.xml
+	sleep 600
+done

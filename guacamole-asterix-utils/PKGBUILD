@@ -1,0 +1,28 @@
+# Maintainer: Radek Podgorny <radek@podgorny.cz>
+pkgname='guacamole-asterix-utils'
+pkgver='0.1'
+pkgrel=1
+pkgdesc="Asterix utilities for guacamole suite"
+arch=('any')
+#url="https://podgorny.cz"
+#license=('PSF')
+depends=('dnsutils' 'python')
+#optdepends=()
+#makedepends=()
+#options=(!emptydirs)
+#backup=('etc/mine-scrypt-gpu.conf')
+source=('guacamole_gen_xml' 'guacamole_gen_xml_asterix' 'guacamole-gen-xml-asterix.service')
+md5sums=('2ebadc2ff5a4bf86a7cb70a2e6911dc4'
+         '93e515b255c55615906cfbb45c95365a'
+         '2c9794ae870569b772572e2513e6e441')
+
+package() {
+	cd "$srcdir"
+
+	install -d $pkgdir/usr/bin
+	install guacamole_gen_xml $pkgdir/usr/bin
+	install guacamole_gen_xml_asterix $pkgdir/usr/bin
+
+	install -d $pkgdir/usr/lib/systemd/system
+	install -m 0644 guacamole-gen-xml-asterix.service $pkgdir/usr/lib/systemd/system/
+}
