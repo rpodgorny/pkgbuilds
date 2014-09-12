@@ -1,0 +1,33 @@
+# Maintainer: M0Rf30
+
+pkgname=tinycamd-svn
+pkgver=46
+pkgrel=1
+pkgdesc="A small webcam daemon for Video4Linux2 devices"
+arch=('i686' 'x86_64' 'armv6h')
+url="https://tinycamd.googlecode.com"
+license=('BSD')
+depends=('libjpeg-turbo')
+makedepends=('subversion')
+source=("tinycamd::svn+http://tinycamd.googlecode.com/svn/trunk/"
+"patch_vidioc_error.diff")
+
+pkgver() {
+  cd tinycamd
+  svnversion | tr -d [A-z]
+}
+
+build() {
+  cd tinycamd
+  patch <$srcdir/patch_vidioc_error.diff
+  #make CFLAGS="-Wall -O2 -MMD $(CFLAGS) $(COPTS)"
+  make
+}
+
+package() {
+  cd tinycamd
+  make DESTDIR=$pkgdir install
+}
+
+md5sums=('SKIP'
+         '1607fd067e47dda17d4dc0a054fa0713')
