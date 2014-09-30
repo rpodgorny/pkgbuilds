@@ -1,4 +1,4 @@
-pkgname=novnc-git
+pkgname=novnc-rpodgorny-git
 pkgver=20140930.800
 pkgrel=1
 pkgdesc="javascript vnc client"
