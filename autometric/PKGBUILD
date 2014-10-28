@@ -1,6 +1,6 @@
 # Maintainer: Radek Podgorny <radek@podgorny.cz>
 pkgname='autometric'
-pkgver='0.6'
+pkgver='0.9'
 pkgrel=1
 pkgdesc="Radek Podgorny's automatic route metric setting stuff"
 arch=('any')
@@ -12,7 +12,7 @@ depends=('fping' 'python')
 #options=(!emptydirs)
 #backup=('etc/mine-scrypt-gpu.conf')
 source=('autometric' 'autometric.service')
-md5sums=('99b8e00a47627c9220cdf25f6aa40581'
+md5sums=('b9cd9f526fb426dbb7e2a414719391a1'
          '1bc169293b1427d103efaa9eff08136e')
 
 package() {

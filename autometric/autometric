@@ -10,7 +10,7 @@ Options:
   --log-level DEBUG|INFO|WARNING|ERROR  Log level [default: INFO].
 '''
 
-__version__ = '0.6'
+__version__ = '0.9'
 
 
 import sys
@@ -105,13 +105,17 @@ def main():
 
 		for route in routes:
 			if test_route(route):
-				logging.info('route "%s" functional' % route)
+				logging.debug('route "%s" functional' % route)
 
-				functional_since[route] = t
+				if not route in functional_since:
+					logging.info('route "%s" just got functional' % route)
+					functional_since[route] = t
+				#endif
 			else:
-				logging.info('route "%s" non-functional!' % route)
+				logging.debug('route "%s" non-functional' % route)
 
 				if route in functional_since:
+					logging.info('route "%s" just got non-functional' % route)
 					del functional_since[route]
 				#endif
 			#endif
@@ -120,21 +124,18 @@ def main():
 		logging.debug('functional_since: %s' % functional_since)
 
 		for route in routes:
-			since = functional_since[route]
 			metric = get_metric(route)
+			new_metric = None
 
-			if route in first_func \
-			and t - since > functional_minimum \
+			if route in functional_since \
+			and t - functional_since[route] > functional_minimum \
 			and metric >= metric_mask:
 				new_metric = metric % metric_mask
-
-				logging.info('setting new route metric for "%s" to %d' % (route, new_metric))
-
-				subprocess.call('ip route del %s' % route, shell=True)
-				subprocess.call('ip route add %s' % set_metric(route, new_metric), shell=True)
 			elif metric < metric_mask:
 				new_metric = metric + metric_mask
+			#endif
 
+			if not new_metric is None:
 				logging.info('setting new route metric for "%s" to %d' % (route, new_metric))
 
 				subprocess.call('ip route del %s' % route, shell=True)
