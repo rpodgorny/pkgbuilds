@@ -1,0 +1,12 @@
+PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin
+
+DISPLAY=:0
+
+#0 6 * * 1-5	dochazka	env DISPLAY=:0 xset dpms force on
+#0 19-23 * * 1-5	dochazka	env DISPLAY=:0 xset dpms force off
+#0 * * * 6-7	dochazka	env DISPLAY=:0 xset dpms force off
+
+0 6 * * 1-5	dochazka	ln -sf .xscreensaver-day .xscreensaver; xscreensaver-command -restart >/dev/null 2>/dev/null
+#* * * * 1-5	dochazka	ln -sf .xscreensaver-day .xscreensaver; xscreensaver-command -restart >/dev/null 2>/dev/null
+0 18 * * 1-5	dochazka	ln -sf .xscreensaver-night .xscreensaver; xscreensaver-command -restart >/dev/null 2>/dev/null
+#0 * * * 6-7	dochazka	ln -sf .xscreensaver-night .xscreensaver; xscreensaver-command -restart >/dev/null 2>/dev/null

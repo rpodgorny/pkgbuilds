@@ -1,0 +1,10 @@
+#xset -dpms
+
+xscreensaver &
+#firefox http://dochazka/ &
+#chromium --app=http://dochazka/ &
+chromium --app=http://dochazka.asterix.cz/ &
+
+`sleep 30 ; xte 'mousemove 100 100' 'key F11'` &
+
+exec openbox

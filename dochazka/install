@@ -1,0 +1,11 @@
+post_install() {
+	getent group dochazka &>/dev/null || groupadd dochazka >/dev/null
+	getent passwd dochazka &>/dev/null || useradd -g dochazka dochazka >/dev/null
+	true
+}
+
+post_remove() {
+	getent passwd dochazka &>/dev/null && userdel dochazka >/dev/null
+	getent group dochazka &>/dev/null && groupdel dochazka >/dev/null
+	true
+}

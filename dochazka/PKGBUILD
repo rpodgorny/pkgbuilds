@@ -1,0 +1,31 @@
+# Maintainer: Radek Podgorny <radek@podgorny.cz>
+pkgname='dochazka'
+pkgver='0'
+pkgrel=1
+pkgdesc="Asterix attendence system"
+arch=('any')
+#url="https://podgorny.cz"
+#license=('PSF')
+depends=('chromium' 'openbox' 'xautomation' 'xscreenserver' 'xorg-xinit' 'xorg-xset')
+#optdepends=()
+#makedepends=()
+#options=(!emptydirs)
+#backup=('etc/mine-scrypt-gpu.conf')
+source=('dochazka.cron' 'dochazka.service' 'xinitrc' 'xscreensaver-day' 'xscreensaver-night')
+md5sums=('6f3a99b0d627e28288f6e355b986ae59'
+         '1bc169293b1427d103efaa9eff08136e')
+
+install=install
+
+package() {
+	cd "$srcdir"
+
+	install -Dm0644 dochazka.cron $pkgdir/etc/cron.d/dochazka
+	install -Dm0644 dochazka.service $pkgdir/usr/lib/systemd/system/dochazka.service
+
+	install -d -o dochazka "${pkgdir}"/home/dochazka
+
+	install -Dm0644 -o dochazka xinitrc $pkgdir/home/dochazka/.xinitrc
+	install -Dm0644 -o dochazka xscreensaver-day $pkgdir/home/dochazka/.xscreensaver-day
+	install -Dm0644 -o dochazka xscreensaver-night $pkgdir/home/dochazka/.xscreensaver-night
+}

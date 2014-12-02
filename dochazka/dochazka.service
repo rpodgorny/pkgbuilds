@@ -1,0 +1,11 @@
+[Unit]
+Description=Attendance X
+After=systemd-user-sessions.service network-online.target
+
+[Service]
+User=dochazka
+ExecStart=/bin/bash --login -c xinit -- -dpi 96
+Restart=always
+
+[Install]
+WantedBy=graphical.target
