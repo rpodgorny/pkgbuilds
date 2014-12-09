@@ -4,7 +4,7 @@ After=systemd-user-sessions.service network-online.target
 
 [Service]
 User=dochazka
-ExecStart=/bin/bash --login -c xinit -- -dpi 96
+ExecStart=/bin/bash --login -c xinit /usr/lib/dochazka/xinit -- -dpi 96
 Restart=always
 
 [Install]
