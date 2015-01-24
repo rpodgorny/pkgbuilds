@@ -1,0 +1,24 @@
+pkgname='sureboot-git'
+pkgrel=1
+pkgver=r2.578e387
+pkgdesc="Multiple-device fail-safe booting solution"
+arch=('i686' 'x86_64')
+url="https://github.com/rpodgorny/sureboot/"
+license=('GPL')
+depends=('btrfs-progs' 'coreutils' 'dosfstools' 'python' 'util-linux' 'syslinux')
+makedepends=('git')
+provides=('sureboot')
+source=("$pkgname"::'git+https://github.com/rpodgorny/sureboot')
+md5sums=('SKIP')
+
+pkgver() {
+	cd "$srcdir/$pkgname"
+	printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+package() {
+	cd "$srcdir/$pkgname"
+
+	install -d $pkgdir/usr/bin
+	install -m 0755 sureboot $pkgdir/usr/bin/
+}
