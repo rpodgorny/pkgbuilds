@@ -1,0 +1,28 @@
+pkgname='omnirun-git'
+pkgrel=1
+pkgver=r2.0f601c4
+pkgdesc="Run a command or a script on many machines"
+arch=('i686' 'x86_64')
+url="https://github.com/rpodgorny/omnirun/"
+license=('GPL')
+depends=('openssh' 'python' 'python-docopt')
+optdepends=(
+	'sshpass: supply passwords non-interactively'
+	'tmux: tmux support'
+)
+makedepends=('git')
+provides=('omnirun')
+source=("$pkgname"::'git+https://github.com/rpodgorny/omnirun')
+md5sums=('SKIP')
+
+pkgver() {
+	cd "$srcdir/$pkgname"
+	printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+package() {
+	cd "$srcdir/$pkgname"
+
+	install -d $pkgdir/usr/bin
+	install -m 0755 omnirun $pkgdir/usr/bin/
+}
