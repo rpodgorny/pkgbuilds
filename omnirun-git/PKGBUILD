@@ -1,6 +1,6 @@
 pkgname='omnirun-git'
 pkgrel=1
-pkgver=r2.0f601c4
+pkgver=r7.2eef03f
 pkgdesc="Run a command or a script on many machines"
 arch=('i686' 'x86_64')
 url="https://github.com/rpodgorny/omnirun/"
@@ -22,7 +22,5 @@ pkgver() {
 
 package() {
 	cd "$srcdir/$pkgname"
-
-	install -d $pkgdir/usr/bin
-	install -m 0755 omnirun $pkgdir/usr/bin/
+	python setup.py install --root="$pkgdir/" --optimize=1
 }
