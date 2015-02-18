@@ -1,0 +1,28 @@
+# Maintainer: Radek Podgorny <radek@podgorny.cz>
+
+pkgname=piwik
+pkgver=2.11.0
+pkgrel=1
+pkgdesc="Piwik is a real time web analytics software program, written in PHP"
+arch=('any')
+url="http://www.piwik.org"
+license=('GPL')
+depends=('php' 'php-gd')
+optdepends=('mariadb: Database server'
+  'python2: For log importer script'
+  'php-geoip: For GeoIP php module')
+install=$pkgname.install
+source=(http://builds.piwik.org/$pkgname-$pkgver.tar.gz)
+md5sums=('884c9ebff290ada454f7a3a53bae48b7')
+
+backup=('etc/webapps/piwik/config.ini.php')
+
+_piwikpath="/usr/share/webapps/"
+_piwikconfigpath="/etc/webapps/piwik"
+
+package() {
+  install -d ${pkgdir}${_piwikpath}
+  install -d ${pkgdir}${_piwikconfigpath}
+  cp -r ${srcdir}/$pkgname ${pkgdir}${_piwikpath}
+  cp ${srcdir}/$pkgname/config/global.ini.php ${pkgdir}${_piwikconfigpath}/config.ini.php
+}
