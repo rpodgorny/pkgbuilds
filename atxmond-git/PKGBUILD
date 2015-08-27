@@ -26,9 +26,10 @@ package() {
 
 	install -d $pkgdir/usr/lib/systemd/system
 	install -m 0644 etc/atxmond.service $pkgdir/usr/lib/systemd/system/
+	install -m 0644 etc/atxmond@.service $pkgdir/usr/lib/systemd/system/
 
 	install -d $pkgdir/etc/atxmond
-	install -m 0644 atxmond.conf $pkgdir/etc/atxmond/
-	install -m 0644 alerts.conf $pkgdir/etc/atxmond/
-	install -m 0644 events.conf $pkgdir/etc/atxmond/
+	install -m 0644 etc/atxmond.conf $pkgdir/etc/atxmond/
+	install -m 0644 etc/alerts.conf $pkgdir/etc/atxmond/
+	install -m 0644 etc/events.conf $pkgdir/etc/atxmond/
 }
