@@ -2,7 +2,7 @@
 pkgname='atxmond-git'
 provides='atxmond'
 conflicts='atxmond'
-pkgver=r3.4c8f669
+pkgver=r10.6d56490
 pkgrel=1
 pkgdesc="AtxMon server"
 arch=('any')
@@ -11,7 +11,7 @@ url="https://github.com/rpodgorny/atxmond"
 depends=('python' 'python-docopt' 'python-pymongo')
 makedepends=('git')
 #options=(!emptydirs)
-backup=('etc/atxmond/atxmond.conf')
+backup=('etc/atxmond/alerts.conf', 'etc/atxmond/atxmond.conf', 'etc/atxmond/probes.conf')
 source=("$pkgname::git+https://github.com/rpodgorny/atxmond")
 md5sums=('SKIP')
 
