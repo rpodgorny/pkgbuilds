@@ -2,13 +2,13 @@
 pkgname='atxmonc-git'
 provides='atxmonc'
 conflicts='atxmonc'
-pkgver=r16.db5f0e2
-pkgrel=3
+pkgver=r24.76b2f14
+pkgrel=2
 pkgdesc="AtxMon client"
 arch=('any')
 url="https://github.com/rpodgorny/atxmonc"
 #license=('PSF')
-depends=('python' 'python-docopt' 'python-requests')
+depends=('python' 'python-docopt' 'python-jinja' 'python-requests')
 makedepends=('git')
 #options=(!emptydirs)
 backup=('etc/atxmonc/atxmonc.conf' 'etc/atxmonc/probes.conf')
