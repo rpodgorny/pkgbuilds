@@ -1,8 +1,8 @@
 pkgname='sureboot-git'
 pkgrel=1
-pkgver=r2.578e387
+pkgver=r5.adde43d
 pkgdesc="Multiple-device fail-safe booting solution"
-arch=('i686' 'x86_64')
+arch=('any')
 url="https://github.com/rpodgorny/sureboot/"
 license=('GPL')
 depends=('btrfs-progs' 'coreutils' 'dosfstools' 'python' 'python-docopt' 'util-linux' 'syslinux')
