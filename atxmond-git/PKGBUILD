@@ -1,0 +1,35 @@
+# Maintainer: Radek Podgorny <radek@podgorny.cz>
+pkgname='atxmond-git'
+provides='atxmond'
+conflicts='atxmond'
+pkgver=r10.6d56490
+pkgrel=1
+pkgdesc="AtxMon server"
+arch=('any')
+url="https://github.com/rpodgorny/atxmond"
+#license=('PSF')
+depends=('python' 'python-docopt' 'python-pymongo')
+makedepends=('git')
+#options=(!emptydirs)
+backup=('etc/atxmond/alerts.conf', 'etc/atxmond/atxmond.conf', 'etc/atxmond/probes.conf')
+source=("$pkgname::git+https://github.com/rpodgorny/atxmond")
+md5sums=('SKIP')
+
+pkgver() {
+	cd "$srcdir/$pkgname"
+	printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+package() {
+	cd "$srcdir/$pkgname"
+	python setup.py install --root="$pkgdir"/ --optimize=1
+
+	install -d $pkgdir/usr/lib/systemd/system
+	install -m 0644 etc/atxmond.service $pkgdir/usr/lib/systemd/system/
+	install -m 0644 etc/atxmond@.service $pkgdir/usr/lib/systemd/system/
+
+	install -d $pkgdir/etc/atxmond
+	install -m 0644 etc/atxmond.conf $pkgdir/etc/atxmond/
+	install -m 0644 etc/alerts.conf $pkgdir/etc/atxmond/
+	install -m 0644 etc/events.conf $pkgdir/etc/atxmond/
+}
