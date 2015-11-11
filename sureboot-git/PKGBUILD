@@ -1,6 +1,6 @@
 pkgname='sureboot-git'
 pkgrel=1
-pkgver=r4.3f86404
+pkgver=r5.adde43d
 pkgdesc="Multiple-device fail-safe booting solution"
 arch=('any')
 url="https://github.com/rpodgorny/sureboot/"
