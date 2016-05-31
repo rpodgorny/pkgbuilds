@@ -24,7 +24,6 @@ import docopt
 
 def logging_setup(level):
 	logging.basicConfig(level=level)
-#enddef
 
 
 def get_metric(route):
@@ -32,20 +31,15 @@ def get_metric(route):
 		metric = int(re.search('metric (\w*)', route).groups()[0])
 	except:
 		metric = 0
-	#endtry
-
 	return metric
-#enddef
 
 
 def remove_metric(route):
 	return re.sub('metric \w*', '', route).strip()
-#enddef
 
 
 def set_metric(route, metric):
 	return '%s metric %d' % (remove_metric(route), metric)
-#enddef
 
 
 def get_default_routes():
@@ -55,13 +49,12 @@ def get_default_routes():
 	for line in lines:
 		line = line.strip()
 
-		if not 'default' in line: continue
+		if not 'default' in line:
+			continue
 
 		ret.append(line)
-	#endfor
 
 	return ret
-#enddef
 
 
 def test_route(route):
@@ -74,12 +67,11 @@ def test_route(route):
 		ret = 1
 	else:
 		ret = 0
-	#endif
 
 	subprocess.call('ip route del %s' % r, shell=True)
 
 	return ret
-#enddef
+
 
 def main():
 	args = docopt.docopt(__doc__, version=__version__)
@@ -96,7 +88,6 @@ def main():
 	if not os.path.isfile('/usr/bin/fping'):
 		logging.critical('/usr/bin/fping not found!')
 		return 1
-	#endif
 
 	functional_since = {}
 
@@ -116,16 +107,12 @@ def main():
 				if not route_no_metric in functional_since:
 					logging.info('route "%s" just got functional' % route_no_metric)
 					functional_since[route_no_metric] = t
-				#endif
 			else:
 				logging.debug('route "%s" non-functional' % route)
 
 				if route_no_metric in functional_since:
 					logging.info('route "%s" just got non-functional' % route_no_metric)
 					del functional_since[route_no_metric]
-				#endif
-			#endif
-		#endfor
 
 		logging.debug('functional_since: %s' % functional_since)
 
@@ -138,29 +125,20 @@ def main():
 			and t - functional_since[route_no_metric] > functional_minimum:
 				if metric >= metric_mask:
 					new_metric = metric % metric_mask
-				#endif
 			else:
 				if metric < metric_mask:
 					new_metric = metric + metric_mask
-				#endif
-			#endif
 
 			if new_metric is not None:
 				logging.info('setting new route metric for "%s" to %d' % (route, new_metric))
-
 				subprocess.call('ip route del %s' % route, shell=True)
 				subprocess.call('ip route add %s' % set_metric(route, new_metric), shell=True)
-			#endif
-		#endfor
 
 		logging.debug('going to sleep')
 		time.sleep(inverval)
-	#endwhile
 
 	return 0
-#enddef
 
 
 if __name__ == '__main__':
 	sys.exit(main())
-#endif
