@@ -1,5 +1,5 @@
 pkgname='sureboot-git'
-pkgrel=2
+pkgrel=4
 pkgver=r13.956587b
 pkgdesc="Multiple-device fail-safe booting solution"
 arch=('any')
@@ -22,6 +22,6 @@ package() {
 
 	install -d $pkgdir/usr/bin
 	install -m 0755 sureboot $pkgdir/usr/bin/
-	install -d $pkgdir/usr/lib/pacman/hooks
-	install $srcdir/sureboot.hook $pkgdir/usr/lib/pacman/hooks/
+	install -d $pkgdir/usr/share/libalpm/hooks
+	install $srcdir/sureboot.hook $pkgdir/usr/share/libalpm/hooks/
 }
