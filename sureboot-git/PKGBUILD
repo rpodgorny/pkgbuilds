@@ -1,6 +1,6 @@
 pkgname='sureboot-git'
-pkgrel=1
-pkgver=r5.adde43d
+pkgrel=2
+pkgver=r13.956587b
 pkgdesc="Multiple-device fail-safe booting solution"
 arch=('any')
 url="https://github.com/rpodgorny/sureboot/"
@@ -8,8 +8,9 @@ license=('GPL')
 depends=('btrfs-progs' 'coreutils' 'dosfstools' 'python' 'python-docopt' 'util-linux' 'syslinux')
 makedepends=('git')
 provides=('sureboot')
-source=("$pkgname"::'git+https://github.com/rpodgorny/sureboot')
-md5sums=('SKIP')
+source=("$pkgname"::'git+https://github.com/rpodgorny/sureboot' 'sureboot.hook')
+md5sums=('SKIP'
+         'f0c31dec7a6b1885591c8d082254030c')
 
 pkgver() {
 	cd "$srcdir/$pkgname"
@@ -21,4 +22,6 @@ package() {
 
 	install -d $pkgdir/usr/bin
 	install -m 0755 sureboot $pkgdir/usr/bin/
+	install -d $pkgdir/usr/lib/pacman/hooks
+	install $srcdir/sureboot.hook $pkgdir/usr/lib/pacman/hooks/
 }

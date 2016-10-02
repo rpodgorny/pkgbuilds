@@ -1,0 +1,12 @@
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Operation = Remove
+Type = File
+Target = boot/*
+
+[Action]
+Description = sureboot
+When = PostTransaction
+Exec = /usr/bin/sureboot update
+
