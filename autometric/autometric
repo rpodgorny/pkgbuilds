@@ -95,7 +95,6 @@ def main():
 		t = time.monotonic()
 
 		routes = get_default_routes()
-
 		logging.debug('routes: %s' % routes)
 
 		for route in routes:
