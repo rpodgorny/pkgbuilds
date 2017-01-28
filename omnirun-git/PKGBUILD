@@ -1,6 +1,6 @@
 pkgname='omnirun-git'
 pkgrel=1
-pkgver=r7.2eef03f
+pkgver=r87.6fdbd2d
 pkgdesc="Run a command or a script on many machines"
 arch=('any')
 url="https://github.com/rpodgorny/omnirun/"

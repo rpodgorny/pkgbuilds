@@ -1,8 +1,8 @@
 # Maintainer: Radek Podgorny <radek@podgorny.cz>
 pkgname='atxmond-git'
-provides='atxmond'
-conflicts='atxmond'
-pkgver=r10.6d56490
+provides=('atxmond')
+conflicts=('atxmond')
+pkgver=r15.6382428
 pkgrel=1
 pkgdesc="AtxMon server"
 arch=('any')
