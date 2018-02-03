@@ -8,7 +8,7 @@ arch=('any')
 #license=('PSF')
 depends=('python')
 source=('systemd-check-failed' 'systemd-check-failed.service')
-md5sums=('d9cb2012b8e3b393fd0ea18dd6afdad7'
+md5sums=('ee4a46b65f1985f2c61b5c907d98e8a7'
          '8b1d51500baaa1c1dc48915bb05ae16e')
 
 package() {
