@@ -1,6 +1,6 @@
 # Maintainer: Radek Podgorny <radek@podgorny.cz>
 pkgname='systemd-check-failed'
-pkgver='0.2'
+pkgver='0.3'
 pkgrel=1
 pkgdesc="Radek Podgorny's systemd failed service checker"
 arch=('any')
@@ -8,7 +8,7 @@ arch=('any')
 #license=('PSF')
 depends=('python')
 source=('systemd-check-failed' 'systemd-check-failed.service')
-md5sums=('ee4a46b65f1985f2c61b5c907d98e8a7'
+md5sums=('53fcfe90cc9d452b3e3106153d84379c'
          '8b1d51500baaa1c1dc48915bb05ae16e')
 
 package() {
