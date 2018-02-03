@@ -17,6 +17,8 @@ last = ''
 while 1:
 	x = call('systemctl --failed | grep failed')
 	if x and x != last:
-		call('echo "%s" | mail -s "systemd service failure on %s" %s' % (x, hostname, MAILTO))
+		call('echo "%s" | mail -s "systemd service failures on %s" %s' % (x, hostname, MAILTO))
+	elif not x and last:
+		call('echo "%s" | mail -s "systemd services ok again on %s" %s' % (x, hostname, MAILTO))
 	last = x
 	time.sleep(INTERVAL)

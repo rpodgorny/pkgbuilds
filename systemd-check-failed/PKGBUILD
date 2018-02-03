@@ -1,6 +1,6 @@
 # Maintainer: Radek Podgorny <radek@podgorny.cz>
 pkgname='systemd-check-failed'
-pkgver='0.1'
+pkgver='0.2'
 pkgrel=1
 pkgdesc="Radek Podgorny's systemd failed service checker"
 arch=('any')
