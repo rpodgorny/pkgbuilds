@@ -1,0 +1,22 @@
+#!/usr/bin/python3
+
+import subprocess
+import os
+import time
+
+MAILTO = 'root'
+FN_LAST = '/tmp/systemd-check-failed.last'
+INTERVAL = 600
+
+def call(cmd):
+	return subprocess.run(cmd, shell=True, stdout=subprocess.PIPE).stdout.decode().strip()
+
+hostname = call('hostname')
+
+last = ''
+while 1:
+	x = call('systemctl --failed | grep failed')
+	if x and x != last:
+		call('echo "%s" | mail -s "systemd service failure on %s" %s' % (x, hostname, MAILTO))
+	last = x
+	time.sleep(INTERVAL)
