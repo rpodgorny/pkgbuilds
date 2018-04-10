@@ -24,7 +24,7 @@ build() {
 package() {
   cd $srcdir/noVNC-${pkgver}
   mkdir -p $pkgdir/usr/share/novnc $pkgdir/usr/share/doc/novnc $pkgdir/usr/bin
-  cp -a app utils vnc.html vnc_lite.html $pkgdir/usr/share/novnc/
+  cp -a app core vendor utils vnc.html vnc_lite.html $pkgdir/usr/share/novnc/
   cp -a LICENSE.txt README.md $pkgdir/usr/share/doc/novnc
   cat >$pkgdir/usr/bin/novnc <<EOF
 #!/bin/sh
