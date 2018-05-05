@@ -3,24 +3,40 @@
 import subprocess
 import os
 import time
+import sys
+
 
 MAILTO = 'root'
 FN_LAST = '/tmp/systemd-check-failed.last'
 INTERVAL = 600
+
 
 def call(cmd, print_=False):
 	if print_:
 		print('+ %s' % cmd)
 	return subprocess.run(cmd, shell=True, stdout=subprocess.PIPE).stdout.decode().strip()
 
-hostname = call('hostname')
 
-last = ''
-while 1:
-	x = call('systemctl --failed | grep failed')
-	if x and x != last:
-		call('echo "%s" | mail -s "systemd service failures on %s" %s' % (x, hostname, MAILTO), print_=True)
-	elif not x and last:
-		call('echo "%s" | mail -s "systemd services ok again on %s" %s' % (x, hostname, MAILTO), print_=True)
-	last = x
-	time.sleep(INTERVAL)
+def broken_symlinks():
+	x = call('find /etc/systemd/system -type l -print0 | xargs -r0 file | grep "broken symbolic" | sed -e "s/^\|: *broken symbolic.*$//g"')
+	return x
+
+
+def main():
+	hostname = call('hostname')
+	last = ''
+	while 1:
+		failed = call('systemctl --failed | grep failed')
+		bs = broken_symlinks()
+		x = '\n\n'.join([failed, bs])
+		if x and x != last:
+			call('echo "%s" | mail -s "systemd service failures on %s" %s' % (x, hostname, MAILTO), print_=True)
+		elif not x and last:
+			call('echo "%s" | mail -s "systemd services ok again on %s" %s' % (x, hostname, MAILTO), print_=True)
+		last = x
+		time.sleep(INTERVAL)
+	return 0
+
+
+if __name__ == '__main__':
+	sys.exit(main())
