@@ -29,6 +29,7 @@ def main():
 		failed = call('systemctl --failed | grep failed')
 		bs = broken_symlinks()
 		x = '\n\n'.join([failed, bs])
+		x = x.strip()
 		if x and x != last:
 			call('echo "%s" | mail -s "systemd service failures on %s" %s' % (x, hostname, MAILTO), print_=True)
 		elif not x and last:
