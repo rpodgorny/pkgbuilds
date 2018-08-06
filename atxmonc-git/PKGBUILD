@@ -28,6 +28,6 @@ package() {
 	install -m 0644 etc/atxmonc.service $pkgdir/usr/lib/systemd/system/
 
 	install -d $pkgdir/etc/atxmonc
-	install -m 0644 atxmonc.conf $pkgdir/etc/atxmonc/
-	install -m 0644 probes.conf $pkgdir/etc/atxmonc/
+	install -m 0644 pkg_data/atxmonc/atxmonc.conf $pkgdir/etc/atxmonc/
+	install -m 0644 pkg_data/atxmonc/probes.conf $pkgdir/etc/atxmonc/
 }
