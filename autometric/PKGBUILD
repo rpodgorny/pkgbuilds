@@ -1,7 +1,7 @@
 # Maintainer: Radek Podgorny <radek@podgorny.cz>
-pkgname='autometric'
-pkgver='0.12'
-pkgrel=2
+pkgname=autometric
+pkgver=0.12
+pkgrel=3
 pkgdesc="Radek Podgorny's automatic route metric setting stuff"
 arch=('any')
 #url="https://podgorny.cz"
