@@ -1,9 +1,9 @@
 # Maintainer: Radek Podgorny <radek@podgorny.cz>
-pkgname='faddnsc-git'
+pkgname=faddnsc-git
 provides=('faddnsc')
 conflicts=('faddnsc')
 pkgver=r197.ac4cb72
-pkgrel=1
+pkgrel=2
 pkgdesc="Freakin' Awesome Dynamic DNS Updater"
 arch=('any')
 url="https://github.com/rpodgorny/faddnsc"
