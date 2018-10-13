@@ -1,22 +1,27 @@
 # Maintainer: Radek Podgorny <radek@podgorny.cz>
 pkgname=systemd-check-failed
-pkgver=0.5
-pkgrel=2
+pkgver=0.6
+pkgrel=1
 pkgdesc="Radek Podgorny's systemd failed service checker"
 arch=('any')
 #url="https://podgorny.cz"
 #license=('PSF')
 depends=('python')
-source=('systemd-check-failed' 'systemd-check-failed.service')
+source=('systemd-check-failed' 'systemd-check-failed-user' 'systemd-check-failed.service' 'systemd-check-failed-user.service')
 md5sums=('593738b3d59fc1f19a8054942d7ffcb2'
-         '8b1d51500baaa1c1dc48915bb05ae16e')
+         'a111144f0e45558f254b451daf8aa472'
+         '8b1d51500baaa1c1dc48915bb05ae16e'
+         '2d308aec667d50aa9441d2bd03f47c72')
 
 package() {
 	cd "$srcdir"
 
 	install -d $pkgdir/usr/bin
 	install systemd-check-failed $pkgdir/usr/bin
+	install systemd-check-failed-user $pkgdir/usr/bin
 
 	install -d $pkgdir/usr/lib/systemd/system
 	install -m 0644 systemd-check-failed.service $pkgdir/usr/lib/systemd/system/
+	install -d $pkgdir/usr/lib/systemd/user
+	install -m 0644 systemd-check-failed-user.service $pkgdir/usr/lib/systemd/user/
 }

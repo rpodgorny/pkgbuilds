@@ -1,0 +1,10 @@
+[Unit]
+Description=failed user service checker
+
+[Service]
+Environment="PYTHONUNBUFFERED=1"
+ExecStart=/usr/bin/systemd-check-failed-user
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
