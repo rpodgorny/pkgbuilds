@@ -1,8 +1,6 @@
 [Unit]
-Description=Direct X login for user %i
-#After=x@vt7.service systemd-user-sessions.service
+Description=Direct wayland login for user %i
 After=systemd-user-sessions.service
-#Wants=x@vt7.service
 Conflicts=getty@tty7.service
 
 [Service]
