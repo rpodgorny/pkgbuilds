@@ -1,0 +1,17 @@
+# Maintainer: Radek Podgorny <radek@podgorny.cz>
+
+pkgname=wlogin
+pkgver=1
+pkgrel=1
+pkgdesc="Direct login to wayland"
+arch=('any')
+#url=""
+license=('GPL')
+depends=('bash')
+#backup=("etc/zramswap.conf")
+source=("wlogin@.service")
+md5sums=('69b093195e1fc4a676378851d7ce80e9')
+
+package() {
+  install -Dm644 wlogin@.service $pkgdir/usr/lib/systemd/system/wlogin@.service
+}
