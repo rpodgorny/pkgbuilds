@@ -1,0 +1,12 @@
+[Unit]
+Description=mfs_launch_tunnel
+Requires=docker.service
+After=docker.service
+
+[Service]
+Environment="PYTHONUNBUFFERED=1"
+ExecStart=/usr/bin/mfs_launch_tunnel
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

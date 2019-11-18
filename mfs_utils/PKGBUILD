@@ -1,0 +1,66 @@
+# Maintainer: Radek Podgorny <radek@podgorny.cz>
+pkgname=mfs_utils
+pkgver=0.8
+pkgrel=1
+pkgdesc="Radek Podgorny's MooseFS utilities"
+arch=('any')
+depends=('python')
+optdepends=('docker' 'socat')
+source=('mfs_launch_chunkserver'
+        'mfs_launch_chunkserver.service'
+        'mfs_launch_cgiserv'
+        'mfs_launch_cgiserv.service'
+        'mfs_launch_master'
+        'mfs_launch_master.service'
+        'mfs_launch_metalogger'
+        'mfs_launch_metalogger.service'
+        'mfs_launch_tunnel'
+        'mfs_launch_tunnel.service'
+        'mfs_mount'
+        'mfs_mount.service'
+        'mfs_balance_start' 'mfs_balance_stop'
+        'mfs_internal_balance_start' 'mfs_internal_balance_stop'
+        'mfs_empty_trash'
+        'mfs_prep')
+md5sums=('b13c9608676fa47c89a6e5d9c5eb39e8'
+         'd0c6c668e19940f744c2bebf67161c21'
+         '0845bb2d7b494fc1a3dc0304b0ad4ec8'
+         'e82f448f75440bbc2672ad3d1c088f6d'
+         '0cab1ff9e17b8a9a79bdfd77cf53f12f'
+         '0eec10490f1ff4bcc30d142609899c11'
+         '135260d64fffdacf67092b3e31364f0c'
+         '145810a07c5e3abc1df53e1fbaf3da44'
+         '8d45dd640a70a4e7a94a39170297f467'
+         '0ee821c2f4c5e5ffb343b92281251313'
+         '0c80d439b08edd3e879f80f566aa6782'
+         'da5f5412a8d4721a0a79245ec2785a71'
+         'c69b98d4958a5ecfd6eecfe9292e9e1f'
+         'e295a5147892b373331f452b608416ec'
+         'df433c1be2a1609fa3980cff555560ae'
+         'e7d7df0f4978edbebf332267198f4f06'
+         '4b9070b9c0b5fe17834e801bbe692809'
+         '5e70aa4569250aa49e77ef9d36dd839e')
+
+package() {
+  cd "$srcdir"
+
+  install -d $pkgdir/usr/bin
+  install mfs_launch_chunkserver $pkgdir/usr/bin
+  install mfs_launch_cgiserv $pkgdir/usr/bin
+  install mfs_launch_master $pkgdir/usr/bin
+  install mfs_launch_metalogger $pkgdir/usr/bin
+  install mfs_launch_tunnel $pkgdir/usr/bin
+  install mfs_mount $pkgdir/usr/bin
+  install mfs_balance_start mfs_balance_stop $pkgdir/usr/bin
+  install mfs_internal_balance_start mfs_internal_balance_stop $pkgdir/usr/bin
+  install mfs_empty_trash $pkgdir/usr/bin
+  install mfs_prep $pkgdir/usr/bin
+
+  install -d $pkgdir/usr/lib/systemd/system
+  install -m 0644 mfs_launch_chunkserver.service $pkgdir/usr/lib/systemd/system/
+  install -m 0644 mfs_launch_cgiserv.service $pkgdir/usr/lib/systemd/system/
+  install -m 0644 mfs_launch_master.service $pkgdir/usr/lib/systemd/system/
+  install -m 0644 mfs_launch_metalogger.service $pkgdir/usr/lib/systemd/system/
+  install -m 0644 mfs_launch_tunnel.service $pkgdir/usr/lib/systemd/system/
+  install -m 0644 mfs_mount.service $pkgdir/usr/lib/systemd/system/
+}
