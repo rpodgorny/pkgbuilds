@@ -1,6 +1,6 @@
 # Maintainer: Radek Podgorny <radek@podgorny.cz>
 pkgname=mfs_utils
-pkgver=0.8
+pkgver=0.10
 pkgrel=1
 pkgdesc="Radek Podgorny's MooseFS utilities"
 arch=('any')
