@@ -2,8 +2,8 @@
 pkgname=faddnsc-git
 provides=('faddnsc')
 conflicts=('faddnsc')
-pkgver=r197.ac4cb72
-pkgrel=2
+pkgver=r200.b9fd931
+pkgrel=6
 pkgdesc="Freakin' Awesome Dynamic DNS Updater"
 arch=('any')
 url="https://github.com/rpodgorny/faddnsc"
