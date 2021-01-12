@@ -8,8 +8,8 @@ arch=('any')
 #license=('PSF')
 depends=('python')
 source=('systemd-check-failed' 'systemd-check-failed-user' 'systemd-check-failed.service' 'systemd-check-failed-user.service')
-md5sums=('593738b3d59fc1f19a8054942d7ffcb2'
-         'a111144f0e45558f254b451daf8aa472'
+md5sums=('c19ed82a6b6eb5a774d0349e788508f5'
+         '665eb436af77607a6a881e1a6d7e4017'
          '8b1d51500baaa1c1dc48915bb05ae16e'
          '2d308aec667d50aa9441d2bd03f47c72')
 
