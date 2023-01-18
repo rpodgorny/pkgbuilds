@@ -1,6 +1,6 @@
 # Maintainer: Radek Podgorny <radek@podgorny.cz>
 pkgname=mfs_utils
-pkgver=0.11
+pkgver=0.12
 pkgrel=1
 pkgdesc="Radek Podgorny's MooseFS utilities"
 arch=('any')
@@ -32,14 +32,14 @@ md5sums=('b13c9608676fa47c89a6e5d9c5eb39e8'
          '145810a07c5e3abc1df53e1fbaf3da44'
          '8d45dd640a70a4e7a94a39170297f467'
          '0ee821c2f4c5e5ffb343b92281251313'
-         'b3c81296f0059cebf9d053fcf59f02bb'
+         '03d4148e2293250d466903de068aa851'
          'da5f5412a8d4721a0a79245ec2785a71'
          'c69b98d4958a5ecfd6eecfe9292e9e1f'
          'e295a5147892b373331f452b608416ec'
          'df433c1be2a1609fa3980cff555560ae'
          'e7d7df0f4978edbebf332267198f4f06'
          '4b9070b9c0b5fe17834e801bbe692809'
-         '3ecb430b709f1376a2eae277fd61d0cf')
+         '5a64cd25cea4f01929db77246e133af3')
 
 package() {
   cd "$srcdir"
