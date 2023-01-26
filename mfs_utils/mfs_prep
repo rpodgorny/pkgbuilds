@@ -7,7 +7,7 @@ import random
 
 def run(cmd):
 	print('+ %s' % cmd)
-	return subprocess.call(cmd, shell=True)
+	return subprocess.check_call(cmd, shell=True)
 
 
 def main():
@@ -22,6 +22,8 @@ def main():
 
 	run('test -b %s' % dev)
 	run('test ! -b %s1' % dev)
+	run('which dd')
+	run('which parted')
 
 	run('dd if=/dev/zero of=%s bs=10M count=1' % dev)
 	if fstype == "btrfs":
