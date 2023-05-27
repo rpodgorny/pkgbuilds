@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 
-import os
 import sys
 import subprocess
 
@@ -11,7 +10,7 @@ def run(cmd):
 
 
 def main():
-	return run('docker run --rm --net=host --name mfscgiserv rpodgorny/moosefs ./mfscgiserv.sh')
+	return run('docker run --rm --net=host --name mfscgiserv docker.io/rpodgorny/moosefs:3.0.117-2 ./mfscgiserv.sh')
 
 
 if __name__ == '__main__':

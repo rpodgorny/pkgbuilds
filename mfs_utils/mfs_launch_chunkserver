@@ -16,7 +16,7 @@ def main():
 	vols_opt = ''
 	for vol in vols:
 		vols_opt += ' -v /mnt/%s:/mnt/%s' % (vol, vol)
-	return run('docker run --rm --net=host %s --name mfschunkserver rpodgorny/moosefs ./mfschunkserver.sh' % vols_opt)
+	return run('docker run --rm --net=host %s --name mfschunkserver docker.io/rpodgorny/moosefs:3.0.117-2 ./mfschunkserver.sh' % vols_opt)
 
 
 if __name__ == '__main__':
