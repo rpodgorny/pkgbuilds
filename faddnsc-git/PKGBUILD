@@ -20,8 +20,11 @@ pkgver() {
   printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
 }
 
+prepare() {
+  git -C "${srcdir}/${pkgname}" clean -dfx
+}
+
 build() {
-  #cd "$_name-$pkgver"
   cd "$srcdir/$pkgname"
   python -m build --wheel --no-isolation
 }
