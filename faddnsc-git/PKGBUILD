@@ -3,30 +3,36 @@ pkgname=faddnsc-git
 provides=('faddnsc')
 conflicts=('faddnsc')
 pkgver=r200.b9fd931
-pkgrel=8
+pkgrel=9
 pkgdesc="Freakin' Awesome Dynamic DNS Updater"
 arch=('any')
 url="https://github.com/rpodgorny/faddnsc"
 #license=('PSF')
 depends=('python' 'python-docopt')
-makedepends=('git')
+makedepends=('git' 'python-build' 'python-installer' 'python-wheel')
 #options=(!emptydirs)
 backup=('etc/faddnsc.conf')
 source=("$pkgname::git+https://github.com/rpodgorny/faddnsc")
 md5sums=('SKIP')
 
 pkgver() {
-	cd "$srcdir/$pkgname"
-	printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+  cd "$srcdir/$pkgname"
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+build() {
+  #cd "$_name-$pkgver"
+  cd "$srcdir/$pkgname"
+  python -m build --wheel --no-isolation
 }
 
 package() {
-	cd "$srcdir/$pkgname"
-	python setup.py install --root="$pkgdir"/ --optimize=1
+  cd "$srcdir/$pkgname"
+  python -m installer --destdir="$pkgdir" dist/*.whl
 
-	install -d $pkgdir/usr/lib/systemd/system
-	install -m 0644 etc/faddnsc.service $pkgdir/usr/lib/systemd/system/
+  install -d $pkgdir/usr/lib/systemd/system
+  install -m 0644 etc/faddnsc.service $pkgdir/usr/lib/systemd/system/
 
-	install -d $pkgdir/etc
-	install -m 0644 etc/faddnsc.conf $pkgdir/etc/
+  install -d $pkgdir/etc
+  install -m 0644 etc/faddnsc.conf $pkgdir/etc/
 }
