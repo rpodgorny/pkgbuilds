@@ -7,7 +7,6 @@ Conflicts=getty@tty7.service
 User=%i
 TTYPath=/dev/tty7
 PAMName=login
-Environment=DISPLAY=:0
 ExecStart=/usr/bin/bash -l -c "cd; source .xinitrc"
 
 [Install]

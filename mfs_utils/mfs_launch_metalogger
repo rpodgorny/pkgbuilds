@@ -1,0 +1,17 @@
+#!/usr/bin/python3
+
+import sys
+import subprocess
+
+
+def run(cmd):
+	print('+ %s' % cmd)
+	return subprocess.call(cmd, shell=True)
+
+
+def main():
+	return run('docker run --rm --net=host -v mfsmetalogger_data:/var/lib/mfs --name mfsmetalogger docker.io/rpodgorny/moosefs:3.0.117-2 ./mfsmetalogger.sh')
+
+
+if __name__ == '__main__':
+	sys.exit(main())

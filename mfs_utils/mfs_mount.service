@@ -1,0 +1,11 @@
+[Unit]
+Description=mfs_mount
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+Environment="PYTHONUNBUFFERED=1"
+ExecStart=/usr/bin/mfs_mount
+
+[Install]
+WantedBy=multi-user.target
