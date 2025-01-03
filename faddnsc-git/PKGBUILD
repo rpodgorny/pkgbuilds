@@ -2,36 +2,51 @@
 pkgname=faddnsc-git
 provides=('faddnsc')
 conflicts=('faddnsc')
-pkgver=r200.b9fd931
-pkgrel=9
+pkgver=r222.613f816
+pkgrel=1
 pkgdesc="Freakin' Awesome Dynamic DNS Updater"
-arch=('any')
+arch=('x86_64' 'aarch64' 'armv7h')
 url="https://github.com/rpodgorny/faddnsc"
 #license=('PSF')
-depends=('python' 'python-docopt')
-makedepends=('git' 'python-build' 'python-installer' 'python-wheel')
+makedepends=('git' 'cargo')
 #options=(!emptydirs)
 backup=('etc/faddnsc.conf')
 source=("$pkgname::git+https://github.com/rpodgorny/faddnsc")
 md5sums=('SKIP')
 
 pkgver() {
-  cd "$srcdir/$pkgname"
+  #cd "$srcdir/$pkgname"
+  cd "$pkgname"
+
   printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
 }
 
 prepare() {
+  #cd "$srcdir/$pkgname"
+  cd "$pkgname"
+
+  # TODO: why?
   git -C "${srcdir}/${pkgname}" clean -dfx
+
+  export RUSTUP_TOOLCHAIN=stable
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
 
 build() {
-  cd "$srcdir/$pkgname"
-  python -m build --wheel --no-isolation
+  #cd "$srcdir/$pkgname"
+  cd "$pkgname"
+
+  export RUSTUP_TOOLCHAIN=stable
+  export CARGO_TARGET_DIR=target
+  cargo build --frozen --release --all-features
 }
 
 package() {
-  cd "$srcdir/$pkgname"
-  python -m installer --destdir="$pkgdir" dist/*.whl
+  #cd "$srcdir/$pkgname"
+  cd "$pkgname"
+
+  #install -Dm0755 -t "$pkgdir/usr/bin/" "target/release/$pkgname"
+  install -Dm0755 -t "$pkgdir/usr/bin/" "target/release/faddnsc"
 
   install -d $pkgdir/usr/lib/systemd/system
   install -m 0644 etc/faddnsc.service $pkgdir/usr/lib/systemd/system/
