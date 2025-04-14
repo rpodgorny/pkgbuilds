@@ -1,26 +1,45 @@
 pkgname=omnirun-git
 pkgrel=1
-pkgver=r102.11c8b08
+pkgver=r125.dc8fa61
 pkgdesc="Run a command or a script on many machines"
-arch=('any')
+arch=('x86_64')
 url="https://github.com/rpodgorny/omnirun/"
 license=('GPL')
-depends=('openssh' 'python' 'python-docopt')
+depends=('openssh')
 optdepends=(
 	'sshpass: supply passwords non-interactively'
 	'tmux: tmux support'
 )
-makedepends=('git')
+makedepends=('git' 'cargo')
 provides=('omnirun')
 source=("$pkgname"::'git+https://github.com/rpodgorny/omnirun')
 md5sums=('SKIP')
 
 pkgver() {
-	cd "$srcdir/$pkgname"
-	printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+    cd "$srcdir/$pkgname"
+    printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+prepare() {
+    cd "$srcdir/$pkgname"
+    export RUSTUP_TOOLCHAIN=stable
+    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+    cd "$srcdir/$pkgname"
+    export RUSTUP_TOOLCHAIN=stable
+    export CARGO_TARGET_DIR=target
+    cargo build --frozen --release --all-features
+}
+
+check() {
+    cd "$srcdir/$pkgname"
+    export RUSTUP_TOOLCHAIN=stable
+    cargo test --frozen --all-features
 }
 
 package() {
-	cd "$srcdir/$pkgname"
-	python setup.py install --root="$pkgdir/" --optimize=1
+    cd "$srcdir/$pkgname"
+    install -Dm0755 -t "$pkgdir/usr/bin/" "target/release/omnirun"
 }
