@@ -23,7 +23,7 @@ def broken_symlinks():
 
 
 def main():
-	hostname = call('hostname')
+	hostname = call('uname -n')
 	last = ''
 	while 1:
 		failed = call('systemctl --failed | grep failed')

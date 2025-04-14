@@ -1,0 +1,12 @@
+[Unit]
+Description=mfs_launch_chunkserver
+Requires=mfs_mount.service docker.service
+After=mfs_mount.service docker.service
+
+[Service]
+Environment="PYTHONUNBUFFERED=1"
+ExecStart=/usr/bin/mfs_launch_chunkserver
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
