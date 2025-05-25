@@ -10,7 +10,7 @@ def run(cmd):
 
 
 def main():
-	return run('docker run --rm --net=host -v mfsmetalogger_data:/var/lib/mfs --name mfsmetalogger docker.io/rpodgorny/moosefs:3.0.117-2 ./mfsmetalogger.sh')
+	return run('docker run --rm --net=host -v mfsmetalogger_data:/var/lib/mfs --name mfsmetalogger docker.io/rpodgorny/moosefs:4.57.6-1 ./mfsmetalogger.sh')
 
 
 if __name__ == '__main__':
