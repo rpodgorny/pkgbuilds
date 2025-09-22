@@ -1,0 +1,11 @@
+[Unit]
+Description=mfs_launch_gui
+Requires=docker.service
+After=docker.service
+
+[Service]
+ExecStart=/usr/bin/mfs_launch_gui
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

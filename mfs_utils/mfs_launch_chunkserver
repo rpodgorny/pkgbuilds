@@ -5,19 +5,22 @@ import sys
 import subprocess
 
 
+TAG = "4.58.0-1"
+
+
 def run(cmd):
-	print('+ %s' % cmd)
+	print(f"+ {cmd}")
 	return subprocess.call(cmd, shell=True)
 
 
 def main():
-	vols = os.listdir('/mnt')
-	vols = sorted(list(filter(lambda x: x.startswith('mfs_'), vols)))
+	vols = os.listdir("/mnt")
+	vols = sorted(list(filter(lambda x: x.startswith("mfs_"), vols)))
 	vols_opt = ''
 	for vol in vols:
-		vols_opt += ' -v /mnt/%s:/mnt/%s' % (vol, vol)
-	return run('docker run --rm --net=host %s --name mfschunkserver docker.io/rpodgorny/moosefs:4.57.6-1 ./mfschunkserver.sh' % vols_opt)
+		vols_opt += " -v /mnt/%s:/mnt/%s" % (vol, vol)
+	return run(f"docker run --rm --net=host {vols_opt} --name mfschunkserver docker.io/rpodgorny/moosefs:{TAG} ./mfschunkserver.sh")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 	sys.exit(main())

@@ -1,6 +1,6 @@
 # Maintainer: Radek Podgorny <radek@podgorny.cz>
 pkgname=mfs_utils
-pkgver=4.57.6
+pkgver=4.58.0
 pkgrel=1
 pkgdesc="Radek Podgorny's MooseFS utilities"
 arch=('any')
@@ -10,6 +10,8 @@ source=('mfs_launch_chunkserver'
         'mfs_launch_chunkserver.service'
         'mfs_launch_cgiserv'
         'mfs_launch_cgiserv.service'
+        'mfs_launch_gui'
+        'mfs_launch_gui.service'
         'mfs_launch_master'
         'mfs_launch_master.service'
         'mfs_launch_metalogger'
@@ -23,13 +25,15 @@ source=('mfs_launch_chunkserver'
         'mfs_empty_trash'
         'mfs_repair_blocks'
         'mfs_prep')
-md5sums=('ff814d9d4796eaa4160737652dd93dab'
+md5sums=('c1addab7643c1b3a02896710e15761c9'
          'd0c6c668e19940f744c2bebf67161c21'
-         '9d724c9708c7453041a845271c0fb3de'
+         'd898496bad1391ebb86bfca85b7b11ba'
          'e82f448f75440bbc2672ad3d1c088f6d'
-         'fc498b27707437e4a95b4de3c6354afe'
+         'f3b6989661731c8915450a214b062850'
+         '960b620b22e3efe7e40d8bd08ba2c974'
+         '90665ee3039ec9b1c62b9295fc4021d9'
          '0eec10490f1ff4bcc30d142609899c11'
-         'f3d2db23881b02182bebeb37e7ab18d5'
+         '99ff21c6d29b2569e7ba55344335701b'
          '145810a07c5e3abc1df53e1fbaf3da44'
          '8d45dd640a70a4e7a94a39170297f467'
          '0ee821c2f4c5e5ffb343b92281251313'
@@ -49,6 +53,7 @@ package() {
   install -d $pkgdir/usr/bin
   install mfs_launch_chunkserver $pkgdir/usr/bin
   install mfs_launch_cgiserv $pkgdir/usr/bin
+  install mfs_launch_gui $pkgdir/usr/bin
   install mfs_launch_master $pkgdir/usr/bin
   install mfs_launch_metalogger $pkgdir/usr/bin
   install mfs_launch_tunnel $pkgdir/usr/bin
@@ -61,6 +66,7 @@ package() {
   install -d $pkgdir/usr/lib/systemd/system
   install -m 0644 mfs_launch_chunkserver.service $pkgdir/usr/lib/systemd/system/
   install -m 0644 mfs_launch_cgiserv.service $pkgdir/usr/lib/systemd/system/
+  install -m 0644 mfs_launch_gui.service $pkgdir/usr/lib/systemd/system/
   install -m 0644 mfs_launch_master.service $pkgdir/usr/lib/systemd/system/
   install -m 0644 mfs_launch_metalogger.service $pkgdir/usr/lib/systemd/system/
   install -m 0644 mfs_launch_tunnel.service $pkgdir/usr/lib/systemd/system/
