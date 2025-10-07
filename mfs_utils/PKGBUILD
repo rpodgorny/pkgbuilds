@@ -1,6 +1,6 @@
 # Maintainer: Radek Podgorny <radek@podgorny.cz>
 pkgname=mfs_utils
-pkgver=4.58.0
+pkgver=4.58.1
 pkgrel=1
 pkgdesc="Radek Podgorny's MooseFS utilities"
 arch=('any')
@@ -25,15 +25,15 @@ source=('mfs_launch_chunkserver'
         'mfs_empty_trash'
         'mfs_repair_blocks'
         'mfs_prep')
-md5sums=('c1addab7643c1b3a02896710e15761c9'
+md5sums=('9d46882acc538df84681726861ca905f'
          'd0c6c668e19940f744c2bebf67161c21'
-         'd898496bad1391ebb86bfca85b7b11ba'
+         'c3cc1361244a0fd28aa69f25a605ed26'
          'e82f448f75440bbc2672ad3d1c088f6d'
-         'f3b6989661731c8915450a214b062850'
+         'e07a9717b82b35d5a78a2a630cde5cd3'
          '960b620b22e3efe7e40d8bd08ba2c974'
-         '90665ee3039ec9b1c62b9295fc4021d9'
+         'aa83e965ea7e0d5c6663f36b47bc4b26'
          '0eec10490f1ff4bcc30d142609899c11'
-         '99ff21c6d29b2569e7ba55344335701b'
+         'b5144572ce321f8ac9a542d2287d1bc3'
          '145810a07c5e3abc1df53e1fbaf3da44'
          '8d45dd640a70a4e7a94a39170297f467'
          '0ee821c2f4c5e5ffb343b92281251313'
