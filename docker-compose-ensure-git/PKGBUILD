@@ -1,0 +1,30 @@
+# Maintainer: Radek Podgorny <radek@podgorny.cz>
+pkgname=docker-compose-ensure-git
+provides=('docker-compose-ensure')
+conflicts=('docker-compose-ensure')
+pkgver=r82.b6fafc4
+pkgrel=1
+pkgdesc="Make sure my docker-compose services are running"
+arch=('any')
+url="https://github.com/rpodgorny/docker-compose-ensure"
+#license=('PSF')
+depends=('python' 'python-docopt')
+makedepends=('git')
+#options=(!emptydirs)
+source=("$pkgname::git+https://github.com/rpodgorny/docker-compose-ensure")
+md5sums=('SKIP')
+
+pkgver() {
+	cd "$srcdir/$pkgname"
+	printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+package() {
+	cd "$srcdir/$pkgname"
+	python setup.py install --root="$pkgdir"/ --optimize=1
+
+	install -d $pkgdir/etc/docker-compose-ensure
+
+	install -d $pkgdir/usr/lib/systemd/system
+	install -m 0644 docker-compose-ensure.service $pkgdir/usr/lib/systemd/system/
+}
