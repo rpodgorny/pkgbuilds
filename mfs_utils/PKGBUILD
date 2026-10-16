@@ -1,10 +1,10 @@
 # Maintainer: Radek Podgorny <radek@podgorny.cz>
 pkgname=mfs_utils
 pkgver=4.59.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Radek Podgorny's MooseFS utilities"
 arch=('any')
-depends=('python' 'moosefs')
+depends=('python' 'moosefs' 'jq')
 optdepends=('docker' 'socat')
 source=('mfs_launch_chunkserver'
         'mfs_launch_chunkserver.service'
@@ -24,7 +24,8 @@ source=('mfs_launch_chunkserver'
         'mfs_internal_balance_start' 'mfs_internal_balance_stop'
         'mfs_empty_trash'
         'mfs_repair_blocks'
-        'mfs_prep')
+        'mfs_prep'
+        'mfs_info' 'mfs_flows')
 md5sums=('5fe698bd06405e18e39ca71c96079d25'
          'd0c6c668e19940f744c2bebf67161c21'
          'bdd26a4d16cd1d085f6b9b10e1905821'
@@ -43,9 +44,11 @@ md5sums=('5fe698bd06405e18e39ca71c96079d25'
          'e295a5147892b373331f452b608416ec'
          'df433c1be2a1609fa3980cff555560ae'
          'e7d7df0f4978edbebf332267198f4f06'
-         '4b9070b9c0b5fe17834e801bbe692809'
+         '4b96d3c0d658554b630dd3f670a9b9f9'
          '52e2ce24fb4cb193600b834ecb3651a2'
-         'd9a6a4efec94c904a11200f3d0c8f0c9')
+         'd9a6a4efec94c904a11200f3d0c8f0c9'
+         'e3b4f687948dafe5182ef314d474ca24'
+         '3c46e5fd882c6a5bbb0287a1381b9914')
 
 package() {
   cd "$srcdir"
@@ -62,6 +65,8 @@ package() {
   install mfs_internal_balance_start mfs_internal_balance_stop $pkgdir/usr/bin
   install mfs_empty_trash $pkgdir/usr/bin
   install mfs_prep $pkgdir/usr/bin
+  install mfs_repair_blocks $pkgdir/usr/bin
+  install mfs_info mfs_flows $pkgdir/usr/bin
 
   install -d $pkgdir/usr/lib/systemd/system
   install -m 0644 mfs_launch_chunkserver.service $pkgdir/usr/lib/systemd/system/

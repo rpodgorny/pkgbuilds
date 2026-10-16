@@ -1,0 +1,7 @@
+#!/bin/sh
+
+mfscli -H mfsmaster -SCC -c 1 -d csservin,csservout,csrepin,csrepout,databytesr,databytesw -j | jq -r '
+  ["node","cl_in","cl_out","rep_in","rep_out","disk_r","disk_w"],
+  (.dataset.cscharts | group_by(.chunkserver)[] |
+    [.[0].chunkserver|sub(":9422";"")] + (map(.data_ranges."0".data_array_1[0]/1048576*10|round/10)))
+  | @tsv' | column -t
